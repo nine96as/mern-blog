@@ -6,19 +6,10 @@ import { NavBar } from './layout';
 const App = () => {
   return (
     <Routes>
-      <Route
-        index
-        element={
-          <main>
-            <NavBar />
-            <Post />
-            <Post />
-            <Post />
-          </main>
-        }
-      />
-
-      <Route path='/login' element={<div>login</div>} />
+      <Route path='/' element={<NavBar />}>
+        <Route index element={<Post />} />
+        <Route path='/login' element={<div>login</div>} />
+      </Route>
     </Routes>
   );
 };
