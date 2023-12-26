@@ -1,7 +1,13 @@
 import React from 'react';
 
 const LoginPage = () => {
-  return <div>LoginPage</div>;
+  return (
+    <form action=''>
+      <input type='text' name='' id='' />
+      <input type='password' name='' id='' />
+      <button>Login</button>
+    </form>
+  );
 };
 
 export default LoginPage;
