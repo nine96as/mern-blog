@@ -3,6 +3,7 @@ import cors from 'cors';
 import express from 'express';
 import logger from 'morgan';
 
+import { connectDB } from './database/connect.js';
 import userRouter from './routers/users.js';
 
 export const app = express();
@@ -11,6 +12,8 @@ app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 app.use(express.json());
 app.use(logger('dev'));
 app.use(cookieParser());
+
+connectDB();
 
 app.get('/', (req, res) => {
   res.status(200).json({
