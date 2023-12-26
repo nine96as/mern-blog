@@ -6,9 +6,9 @@ const NavBar = () => {
   return (
     <main>
       <header>
-        <a href='/' className='logo'>
+        <Link to='/' className='logo'>
           MyBlog
-        </a>
+        </Link>
         <nav>
           <Link to='/login'>Login</Link>
           <Link to=''>Register</Link>
