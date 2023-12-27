@@ -45,7 +45,7 @@ export const login = async (req, res) => {
             secure: true,
             sameSite: true
           })
-          .json('ok');
+          .json({ userId: user._id, username: user.username });
       }
     );
   } catch (e) {
