@@ -1,26 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { UserContext } from '../../contexts/UserContext';
 import './style.css';
 
 const NavBar = () => {
-  const [username, setUsername] = useState('');
+  const { user, setUser } = useContext(UserContext);
+  const username = user?.username;
 
   useEffect(() => {
     fetch('http://localhost:3000/users/profile', {
       credentials: 'include'
     }).then((res) =>
-      res.json().then(({ username }) => {
-        setUsername(username);
+      res.json().then((user) => {
+        setUser(user);
       })
     );
-  }, []);
+  }, [setUser]);
 
   const handleClick = async () => {
     fetch('http://localhost:3000/users/logout', {
       method: 'POST',
       credentials: 'include'
     });
-    setUsername('');
+    setUser(null);
   };
 
   return (
