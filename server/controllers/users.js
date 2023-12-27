@@ -38,12 +38,14 @@ export const login = async (req, res) => {
       (e, token) => {
         if (e) return res.status(500).json({ error: e.message });
 
-        res.cookie('token', token, {
-          maxAge: 60 * 60 * 1000, // 1 hour
-          httpOnly: true,
-          secure: true,
-          sameSite: true
-        });
+        res
+          .cookie('token', token, {
+            maxAge: 60 * 60 * 1000, // 1 hour
+            httpOnly: true,
+            secure: true,
+            sameSite: true
+          })
+          .json('ok');
       }
     );
   } catch (e) {
@@ -62,15 +64,7 @@ export const profile = async (req, res) => {
 
 export const logout = async (req, res) => {
   try {
-    const userToken = req.headers['authorization'];
-    const token = await Token.findOne({ token: userToken });
-
-    if (!token) {
-      throw new Error('Token not found');
-    }
-
-    const result = await Token.deleteOne({ token: token.token });
-    res.status(200).json(result);
+    res.clearCookie('token').json('ok');
   } catch (e) {
     res.status(400).json({ error: e.message });
   }
