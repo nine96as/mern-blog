@@ -1,18 +1,11 @@
 import './App.css';
 import { Post } from './components';
+import { NavBar } from './layout';
 
 const App = () => {
   return (
     <main>
-      <header>
-        <a href='' className='logo'>
-          MyBlog
-        </a>
-        <nav>
-          <a href=''>Login</a>
-          <a href=''>Register</a>
-        </nav>
-      </header>
+      <NavBar />
       <Post />
       <Post />
       <Post />
