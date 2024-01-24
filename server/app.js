@@ -2,6 +2,8 @@ import cors from 'cors';
 import express from 'express';
 import logger from 'morgan';
 
+import userRouter from './routers/users.js';
+
 export const app = express();
 
 app.use(cors());
@@ -15,3 +17,5 @@ app.get('/', (req, res) => {
     endpoints: []
   });
 });
+
+app.use('/users', userRouter);
