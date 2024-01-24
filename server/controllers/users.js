@@ -1,0 +1,52 @@
+import bcrypt from 'bcrypt';
+import { User } from '../models/User.js';
+
+export const register = async (req, res) => {
+  try {
+    const data = req.body;
+
+    const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS));
+    data.password = await bcrypt.hash(data.password, salt);
+
+    const result = await User.create(data);
+    res.status(201).json(result);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+};
+
+export const login = async (req, res) => {
+  const data = req.body;
+  try {
+    const user = await User.findOne({ username: data.username });
+
+    if (!user) throw new Error('User not found');
+
+    const authenticated = await bcrypt.compare(data.password, user.password);
+
+    if (!authenticated) {
+      throw new Error('Incorrect credentials.');
+    } else {
+      const token = await Token.create({ token: uuidv4(), userId: user._id });
+      res.status(200).json({ authenticated: true, token: token.token });
+    }
+  } catch (e) {
+    res.status(403).json({ error: e.message });
+  }
+};
+
+export const logout = async (req, res) => {
+  try {
+    const userToken = req.headers['authorization'];
+    const token = await Token.findOne({ token: userToken });
+
+    if (!token) {
+      throw new Error('Token not found');
+    }
+
+    const result = await Token.deleteOne({ token: token.token });
+    res.status(200).json(result);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+};
