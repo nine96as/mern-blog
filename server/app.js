@@ -1,3 +1,4 @@
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
 import logger from 'morgan';
@@ -6,9 +7,10 @@ import userRouter from './routers/users.js';
 
 export const app = express();
 
-app.use(cors());
+app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 app.use(express.json());
 app.use(logger('dev'));
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
   res.status(200).json({
