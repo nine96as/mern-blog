@@ -28,29 +28,35 @@ export const login = async (req, res) => {
 
     const authenticated = await bcrypt.compare(password, user.password);
 
-    if (!authenticated) {
+    if (!authenticated)
       return res.status(401).json({ error: 'Incorrect credentials' });
-    } else {
-      const token = jwt.sign(
-        { userId: user._id },
-        process.env.JWT_SECRET,
-        { expiresIn: '1h' },
-        (e, token) => {
-          if (e) return res.status(500).json({ error: e.message });
 
-          res
-            .cookie('token', token, {
-              maxAge: 60 * 60 * 1000, // 1 hour
-              httpOnly: true,
-              secure: true,
-              sameSite: true
-            })
-            .json('ok');
-        }
-      );
-    }
+    jwt.sign(
+      { userId: user._id },
+      process.env.TOKEN_SECRET,
+      { expiresIn: '1h' },
+      (e, token) => {
+        if (e) return res.status(500).json({ error: e.message });
+
+        res.cookie('token', token, {
+          maxAge: 60 * 60 * 1000, // 1 hour
+          httpOnly: true,
+          secure: true,
+          sameSite: true
+        });
+      }
+    );
   } catch (e) {
     res.status(500).json({ error: e.message });
+  }
+};
+
+export const profile = async (req, res) => {
+  try {
+    const { userId } = req.user;
+    res.status(200).json(await User.findById(userId).select('username -_id'));
+  } catch (e) {
+    res.status(404).json({ error: e.message });
   }
 };
 
