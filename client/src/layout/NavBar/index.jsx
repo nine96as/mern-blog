@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import './style.css';
 
 const NavBar = () => {
   return (
@@ -7,8 +9,8 @@ const NavBar = () => {
         MyBlog
       </a>
       <nav>
-        <a href=''>Login</a>
-        <a href=''>Register</a>
+        <Link to='/login'>Login</Link>
+        <Link to=''>Register</Link>
       </nav>
     </header>
   );
