@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../contexts/UserContext';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -22,8 +24,10 @@ const LoginPage = () => {
     if (!response.ok) {
       alert(`Login failed`);
     } else {
-      alert(`Login successful`);
-      navigate('/');
+      response.json().then((user) => {
+        setUser(user);
+        navigate('/');
+      });
     }
   };
 
