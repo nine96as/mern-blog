@@ -12,6 +12,7 @@ const App = () => {
           <Route index element={<Pages.HomePage />} />
           <Route path='/login' element={<Pages.LoginPage />} />
           <Route path='/register' element={<Pages.RegisterPage />} />
+          <Route path='/create' element={<Pages.CreatePost />} />
         </Route>
       </Routes>
     </UserContextProvider>
