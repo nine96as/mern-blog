@@ -1,27 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
 const RegisterPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     const response = await fetch('http://localhost:3000/users/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        username: username,
-        password: password
-      })
-    });
+        username,
+        password,
+      }),
+    })
 
-    if (!response.ok) {
-      alert(`Registration failed`);
+    if (response.ok) {
+      alert(`Registration successful`)
     } else {
-      alert(`Registration successful`);
+      alert(`Registration failed`)
     }
-  };
+  }
 
   return (
     <form className='register' onSubmit={handleSubmit}>
@@ -42,7 +42,7 @@ const RegisterPage = () => {
       />
       <button>Register</button>
     </form>
-  );
-};
+  )
+}
 
-export default RegisterPage;
+export default RegisterPage

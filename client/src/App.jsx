@@ -1,8 +1,8 @@
-import { Route, Routes } from 'react-router-dom';
-import './App.css';
-import { UserContextProvider } from './contexts/UserContext';
-import { NavBar } from './layout';
-import * as Pages from './pages';
+import { Route, Routes } from 'react-router-dom'
+import './App.css'
+import { UserContextProvider } from './contexts/UserContext'
+import { NavBar } from './layout'
+import * as Pages from './pages'
 
 const App = () => {
   return (
@@ -15,7 +15,7 @@ const App = () => {
         </Route>
       </Routes>
     </UserContextProvider>
-  );
-};
+  )
+}
 
-export default App;
+export default App

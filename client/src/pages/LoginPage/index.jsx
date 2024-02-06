@@ -1,35 +1,35 @@
-import React, { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../contexts/UserContext';
+import React, { useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../../contexts/UserContext'
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const { setUser } = useContext(UserContext);
-  const navigate = useNavigate();
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const { setUser } = useContext(UserContext)
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     const response = await fetch('http://localhost:3000/users/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        username: username,
-        password: password
+        username,
+        password,
       }),
-      credentials: 'include'
-    });
+      credentials: 'include',
+    })
 
-    if (!response.ok) {
-      alert(`Login failed`);
-    } else {
+    if (response.ok) {
       response.json().then((user) => {
-        setUser(user);
-        navigate('/');
-      });
+        setUser(user)
+        navigate('/')
+      })
+    } else {
+      alert(`Login failed`)
     }
-  };
+  }
 
   return (
     <form className='login' onSubmit={handleSubmit}>
@@ -50,7 +50,7 @@ const LoginPage = () => {
       />
       <button>Login</button>
     </form>
-  );
-};
+  )
+}
 
-export default LoginPage;
+export default LoginPage

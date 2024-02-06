@@ -1,4 +1,4 @@
-import { Post } from '../../components';
+import { Post } from '../../components'
 
 const HomePage = () => {
   return (
@@ -7,7 +7,7 @@ const HomePage = () => {
       <Post />
       <Post />
     </>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage
