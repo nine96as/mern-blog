@@ -30,11 +30,19 @@ form.register {
   margin: 0 auto;
 }
 
+form.create {
+  display: flex;
+  flex-flow: column;
+  gap: 5vh;
+}
+
 form h1 {
   text-align: center;
 }
 
-input {
+input.login,
+input.register,
+input.create {
   display: block;
   margin-bottom: 5px;
   width: 100%;
@@ -44,7 +52,9 @@ input {
   background-color: #fff;
 }
 
-button {
+button.login,
+button.register,
+button.create {
   cursor: pointer;
   width: 100%;
   display: block;
