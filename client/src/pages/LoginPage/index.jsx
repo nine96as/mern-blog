@@ -33,8 +33,9 @@ const LoginPage = () => {
 
   return (
     <form className='login' onSubmit={handleSubmit}>
-      <h1>Login</h1>
+      <h1>login</h1>
       <input
+        className='login'
         type='text'
         required
         placeholder='username'
@@ -42,13 +43,14 @@ const LoginPage = () => {
         onChange={(e) => setUsername(e.target.value)}
       />
       <input
+        className='login'
         type='password'
         required
         placeholder='password'
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button>Login</button>
+      <button className='login'>login</button>
     </form>
   )
 }

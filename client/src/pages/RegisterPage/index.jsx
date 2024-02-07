@@ -25,8 +25,9 @@ const RegisterPage = () => {
 
   return (
     <form className='register' onSubmit={handleSubmit}>
-      <h1>Register</h1>
+      <h1>register</h1>
       <input
+        className='register'
         type='text'
         required
         placeholder='username'
@@ -34,13 +35,14 @@ const RegisterPage = () => {
         onChange={(e) => setUsername(e.target.value)}
       />
       <input
+        className='register'
         type='password'
         required
         placeholder='password'
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button>Register</button>
+      <button className='register'>register</button>
     </form>
   )
 }
