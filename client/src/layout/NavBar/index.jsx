@@ -1,28 +1,36 @@
 import React, { useContext, useEffect } from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
 import { UserContext } from '../../contexts/UserContext'
 import './style.css'
 
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext)
   const username = user?.username
+  const navigate = useNavigate()
 
   useEffect(() => {
-    fetch('http://localhost:3000/users/profile', {
+    const res = fetch('http://localhost:3000/users/profile', {
       credentials: 'include',
-    }).then((res) =>
-      res.json().then((user) => {
-        setUser(user)
-      })
-    )
+    })
+
+    if (res.ok) {
+      res.json().then((user) => setUser(user))
+    } else {
+      toast.warning(`your login session has expired`)
+      setUser(null)
+      navigate('/login')
+    }
   }, [setUser])
 
-  const handleClick = async () => {
+  const handleLogoutClick = async () => {
     fetch('http://localhost:3000/users/logout', {
       method: 'POST',
       credentials: 'include',
     })
+    toast.success(`cya later, ${username}`)
     setUser(null)
+    navigate('/login')
   }
 
   return (
@@ -34,8 +42,8 @@ const NavBar = () => {
         <nav>
           {username && (
             <>
-              <Link to='create'>create</Link>
-              <a onClick={handleClick}>logout</a>
+              <Link to='/create'>create</Link>
+              <a onClick={handleLogoutClick}>logout</a>
             </>
           )}
           {!username && (
