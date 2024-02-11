@@ -40,9 +40,7 @@ form h1 {
   text-align: center;
 }
 
-input.login,
-input.register,
-input.create {
+input {
   display: block;
   margin-bottom: 5px;
   width: 100%;
@@ -52,9 +50,7 @@ input.create {
   background-color: #fff;
 }
 
-button.login,
-button.register,
-button.create {
+button {
   cursor: pointer;
   width: 100%;
   display: block;
