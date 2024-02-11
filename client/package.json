@@ -10,17 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tiptap/extension-code": "^2.2.2",
-    "@tiptap/extension-color": "^2.2.2",
-    "@tiptap/extension-list-item": "^2.2.2",
-    "@tiptap/extension-text-style": "^2.2.2",
-    "@tiptap/pm": "^2.2.1",
-    "@tiptap/react": "^2.2.1",
-    "@tiptap/starter-kit": "^2.2.1",
+    "@blocknote/core": "^0.11.2",
+    "@blocknote/react": "^0.11.2",
     "axios": "^1.6.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.1"
+    "react-router-dom": "^6.21.1",
+    "sonner": "^1.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.46",
@@ -30,7 +26,6 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
-    "sass": "^1.70.0",
     "vite": "^5.0.10"
   }
 }
