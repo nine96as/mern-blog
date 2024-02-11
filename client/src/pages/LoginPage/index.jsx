@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
 import { UserContext } from '../../contexts/UserContext'
 
 const LoginPage = () => {
@@ -11,7 +12,7 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const response = await fetch('http://localhost:3000/users/login', {
+    const res = await fetch('http://localhost:3000/users/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -21,13 +22,16 @@ const LoginPage = () => {
       credentials: 'include',
     })
 
-    if (response.ok) {
-      response.json().then((user) => {
+    if (res.ok) {
+      res.json().then((user) => {
         setUser(user)
+        toast.success(`welcome, ${user.username}`)
         navigate('/')
       })
     } else {
-      alert(`Login failed`)
+      toast.error(`login failed`, {
+        description: 'invalid username or password',
+      })
     }
   }
 
@@ -35,7 +39,6 @@ const LoginPage = () => {
     <form className='login' onSubmit={handleSubmit}>
       <h1>login</h1>
       <input
-        className='login'
         type='text'
         required
         placeholder='username'
@@ -43,14 +46,13 @@ const LoginPage = () => {
         onChange={(e) => setUsername(e.target.value)}
       />
       <input
-        className='login'
         type='password'
         required
         placeholder='password'
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button className='login'>login</button>
+      <button>login</button>
     </form>
   )
 }
