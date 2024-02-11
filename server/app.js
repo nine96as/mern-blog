@@ -4,6 +4,7 @@ import express from 'express'
 import logger from 'morgan'
 
 import { connectDB } from './database/connect.js'
+import postRouter from './routers/posts.js'
 import userRouter from './routers/users.js'
 
 export const app = express()
@@ -24,3 +25,4 @@ app.get('/', (req, res) => {
 })
 
 app.use('/users', userRouter)
+app.use('/posts', postRouter)
