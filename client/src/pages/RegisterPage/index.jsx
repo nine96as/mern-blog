@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const response = await fetch('http://localhost:3000/users/register', {
+    const res = await fetch('http://localhost:3000/users/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -16,10 +19,13 @@ const RegisterPage = () => {
       }),
     })
 
-    if (response.ok) {
-      alert(`Registration successful`)
+    if (res.ok) {
+      toast.success(`registration successful`)
+      navigate('/login')
     } else {
-      alert(`Registration failed`)
+      toast.error(`registration failed`, {
+        description: 'username already taken',
+      })
     }
   }
 
@@ -27,7 +33,6 @@ const RegisterPage = () => {
     <form className='register' onSubmit={handleSubmit}>
       <h1>register</h1>
       <input
-        className='register'
         type='text'
         required
         placeholder='username'
@@ -35,14 +40,13 @@ const RegisterPage = () => {
         onChange={(e) => setUsername(e.target.value)}
       />
       <input
-        className='register'
         type='password'
         required
         placeholder='password'
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button className='register'>register</button>
+      <button>register</button>
     </form>
   )
 }
