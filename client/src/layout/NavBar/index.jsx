@@ -10,18 +10,18 @@ const NavBar = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const res = fetch('http://localhost:3000/users/profile', {
+    fetch('http://localhost:3000/users/profile', {
       credentials: 'include',
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((user) => setUser(user))
+        return
+      } else if (user) {
+        setUser(null)
+        navigate('/login')
+      }
     })
-
-    if (res.ok) {
-      res.json().then((user) => setUser(user))
-    } else {
-      toast.warning(`your login session has expired`)
-      setUser(null)
-      navigate('/login')
-    }
-  }, [setUser])
+  }, [])
 
   const handleLogoutClick = async () => {
     fetch('http://localhost:3000/users/logout', {
